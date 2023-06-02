@@ -1,0 +1,13 @@
+description: A book for creation (no ID)
+type: object
+properties:
+  name:
+    description: The name of this book
+    type: string
+  publishedDate:
+    type: string
+    format: date
+    description: When the book was published
+required:
+  - name
+  - publishedDate

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.folio.sample.integration.api.health.OkapiHealthTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.873 s - in org.folio.sample.integration.api.health.OkapiHealthTest

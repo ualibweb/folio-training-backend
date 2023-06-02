@@ -1,0 +1,4 @@
+/Users/novercash/folio/folio-training-backend/src/test/java/org/folio/sample/unit/domain/entity/BookTest.java
+/Users/novercash/folio/folio-training-backend/src/test/java/org/folio/sample/integration/api/health/OkapiHealthTest.java
+/Users/novercash/folio/folio-training-backend/src/test/java/org/folio/sample/integration/BaseApiTest.java
+/Users/novercash/folio/folio-training-backend/src/test/java/org/folio/sample/integration/api/books/GetAllBooksTest.java
