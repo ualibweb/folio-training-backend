@@ -1,6 +1,0 @@
-README.md
-pom.xml
-src/main/java/org/folio/sample/domain/dto/BookDTO.java
-src/main/java/org/folio/sample/domain/dto/BookForCreationDTO.java
-src/main/java/org/folio/sample/rest/resource/ApiUtil.java
-src/main/java/org/folio/sample/rest/resource/BooksApi.java
