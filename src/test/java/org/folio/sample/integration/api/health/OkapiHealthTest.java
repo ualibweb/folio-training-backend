@@ -2,7 +2,7 @@ package org.folio.sample.integration.api.health;
 
 import static org.hamcrest.Matchers.is;
 
-import org.folio.sample.integration.BaseApiTest;
+import org.folio.sample.integration.AbstractBaseApiTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
  * The only Okapi requirement for /admin/health is to respond with a 200 status code.
  * @see https://wiki.folio.org/display/DD/Back+End+Module+Health+Check+Protocol
  */
-class OkapiHealthTest extends BaseApiTest {
+class OkapiHealthTest extends AbstractBaseApiTest {
 
   @Test
   void testOkStatusReport() {

@@ -9,11 +9,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 import org.folio.sample.domain.dto.BookDTO;
 import org.folio.sample.domain.dto.BookForCreationDTO;
-import org.folio.sample.integration.BaseApiTest;
+import org.folio.sample.integration.AbstractBaseApiTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-class GetSingleBookTest extends BaseApiTest {
+class GetSingleBookTest extends AbstractBaseApiTest {
 
   @Test
   void testNotFound() {

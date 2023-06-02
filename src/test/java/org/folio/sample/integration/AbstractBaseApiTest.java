@@ -36,7 +36,7 @@ import org.springframework.test.context.ContextConfiguration;
 @AutoConfigureEmbeddedDatabase(refresh = RefreshMode.NEVER)
 @ContextConfiguration(initializers = { WireMockInitializer.class })
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class BaseApiTest {
+public abstract class AbstractBaseApiTest {
 
   public static final String TENANT_ID = "test";
 
