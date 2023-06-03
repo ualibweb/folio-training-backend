@@ -1,5 +1,6 @@
 package org.folio.sample.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,5 +31,11 @@ public class BookService {
 
   public Book createBook(Book book) {
     return bookRepository.save(book);
+  }
+  public Book updateBook(UUID id, String name, LocalDate publishedDate) {
+    Book curBook = bookRepository.getReferenceById(id);
+    curBook.setName(name);
+    curBook.setPublishedDate(publishedDate);
+    return bookRepository.save(curBook);
   }
 }
