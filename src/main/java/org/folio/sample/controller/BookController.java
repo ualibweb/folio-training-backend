@@ -86,7 +86,6 @@ public class BookController implements BooksApi {
       bookMapper.toDto(
         bookService
           .updateBook(bookId, bookMapper.fromDto(book))
-          .orElseThrow(() -> new NotFoundException("Book not found"))
       ),
       HttpStatus.OK
     );
