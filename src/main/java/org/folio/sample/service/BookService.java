@@ -33,7 +33,7 @@ public class BookService {
     return bookRepository.save(book);
   }
 
-  public Optional<Book> updateBook(UUID bookId, Book book) {
+  public Book updateBook(UUID bookId, Book book) {
     // Get the book from the database, throw NotFoundException if not found
     Book bookFromDb = bookRepository.findById(bookId).orElseThrow(() -> new NotFoundException("Book not found"));
 
@@ -43,7 +43,7 @@ public class BookService {
 
     
     // Save the updated book
-    return Optional.of(bookRepository.save(bookFromDb));
+    return bookRepository.save(bookFromDb);
   }
 
 }
