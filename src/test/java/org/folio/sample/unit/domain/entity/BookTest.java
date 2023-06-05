@@ -28,4 +28,45 @@ class BookTest {
       .build();
     assertThat(testBook.isPublishedInLeapYear(), is(false));
   }
+
+  @Test
+  void testNotLeapYear2() {
+    Book testBook = Book
+      .builder()
+      .name("Sample book")
+      .publishedDate(LocalDate.of(99999, 1, 1))
+      .build();
+    assertThat(testBook.isPublishedInLeapYear(), is(false));
+  }
+
+  @Test
+  void testLeapYear2() {
+    Book testBook = Book
+      .builder()
+      .name("Sample book")
+      .publishedDate(LocalDate.of(2000, 1, 1))
+      .build();
+    assertThat(testBook.isPublishedInLeapYear(), is(true));
+  }
+
+  @Test
+  void testLeapYear3() {
+    Book testBook = Book
+      .builder()
+      .name("Sample book")
+      .publishedDate(LocalDate.of(1900, 1, 1))
+      .build();
+    assertThat(testBook.isPublishedInLeapYear(), is(false));
+  }
+
+  @Test
+  void testLeapYear4() {
+    Book testBook = Book
+      .builder()
+      .name("Sample book")
+      .publishedDate(LocalDate.of(1, 1, 1))
+      .build();
+    assertThat(testBook.isPublishedInLeapYear(), is(false));
+  }
+  
 }
