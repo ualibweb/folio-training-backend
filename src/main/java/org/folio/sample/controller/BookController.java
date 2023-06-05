@@ -5,7 +5,6 @@ import java.util.UUID;
 import lombok.extern.log4j.Log4j2;
 import org.folio.sample.domain.dto.BookDTO;
 import org.folio.sample.domain.dto.BookForCreationDTO;
-import org.folio.sample.domain.entity.Book;
 import org.folio.sample.domain.mapper.BookMapper;
 import org.folio.sample.rest.resource.BooksApi;
 import org.folio.sample.service.BookService;
