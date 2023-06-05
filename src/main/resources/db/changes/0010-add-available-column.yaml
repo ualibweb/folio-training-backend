@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-available-column
+      author: danetsao
+      changes:
+        - addColumn:
+            tableName: books
+            columns:
+            - column:
+                name: available
+                type: BOOLEAN
+                constraints:
+                  nullable: true
+                  defaultValueBoolean: true
