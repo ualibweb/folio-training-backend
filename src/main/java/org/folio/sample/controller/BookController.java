@@ -76,4 +76,18 @@ public class BookController implements BooksApi {
       HttpStatus.OK
     );
   }
-}
+
+  /** {@inheritDoc} */
+  @Override
+  public ResponseEntity<BookDTO> updateBook(UUID bookId, BookForCreationDTO book) {
+    log.info("Called PUT /books/{}", bookId);
+
+    return new ResponseEntity<>(
+      bookMapper.toDto(
+        bookService
+          .updateBook(bookId, bookMapper.fromDto(book))
+      ),
+      HttpStatus.OK
+    );
+    }
+  }
