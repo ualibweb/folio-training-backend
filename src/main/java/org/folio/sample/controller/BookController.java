@@ -1,6 +1,5 @@
 package org.folio.sample.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import lombok.extern.log4j.Log4j2;
@@ -38,16 +37,18 @@ public class BookController implements BooksApi {
 
     if (Boolean.TRUE.equals(onlyLeapYears)) {
       return new ResponseEntity<>(
-          bookService
-              .getAllBooksPublishedInLeapYears()
-              .stream()
-              .map(bookMapper::toDto)
-              .toList(),
-          HttpStatus.OK);
+        bookService
+          .getAllBooksPublishedInLeapYears()
+          .stream()
+          .map(bookMapper::toDto)
+          .toList(),
+        HttpStatus.OK
+      );
     } else {
       return new ResponseEntity<>(
-          bookService.getAllBooks().stream().map(bookMapper::toDto).toList(),
-          HttpStatus.OK);
+        bookService.getAllBooks().stream().map(bookMapper::toDto).toList(),
+        HttpStatus.OK
+      );
     }
   }
 
@@ -57,8 +58,9 @@ public class BookController implements BooksApi {
     log.info("Called POST /books with book={}", book);
 
     return new ResponseEntity<>(
-        bookMapper.toDto(bookService.createBook(bookMapper.fromDto(book))),
-        HttpStatus.CREATED);
+      bookMapper.toDto(bookService.createBook(bookMapper.fromDto(book))),
+      HttpStatus.CREATED
+    );
   }
 
   /** {@inheritDoc} */
@@ -67,11 +69,13 @@ public class BookController implements BooksApi {
     log.info("Called GET /books/{}", bookId);
 
     return new ResponseEntity<>(
-        bookMapper.toDto(
-            bookService
-                .getBookById(bookId)
-                .orElseThrow(() -> new NotFoundException("Book not found"))),
-        HttpStatus.OK);
+      bookMapper.toDto(
+        bookService
+          .getBookById(bookId)
+          .orElseThrow(() -> new NotFoundException("Book not found"))
+      ),
+      HttpStatus.OK
+    );
   }
 
   /** {@inheritDoc} */
@@ -79,23 +83,13 @@ public class BookController implements BooksApi {
   public ResponseEntity<BookDTO> updateBook(UUID bookId, BookForCreationDTO book) {
     log.info("Called PUT /books/{}", bookId);
 
-    // Get params for new book
-    String newBookName = book.getName();
-    LocalDate newBookPublishedDate = book.getPublishedDate();
-
-    // Get old book, throw exception if not found and respond 404
-    BookDTO oldBook = bookMapper.toDto(
-        bookService
-            .getBookById(bookId)
-            .orElseThrow(() -> new NotFoundException("Book not found")));
-            
-    // Get old book's id
-    UUID oldBookId = oldBook.getId();
-
-    // Update book, call updateBook method from BookService
     return new ResponseEntity<>(
-        bookMapper.toDto(
-            bookService.updateBook(oldBookId, newBookName, newBookPublishedDate)),
-        HttpStatus.OK);
+      bookMapper.toDto(
+        bookService
+          .updateBook(bookId, bookMapper.fromDto(book))
+          .orElseThrow(() -> new NotFoundException("Book not found"))
+      ),
+      HttpStatus.OK
+    );
+    }
   }
-}
