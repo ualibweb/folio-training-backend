@@ -1,6 +1,5 @@
 package org.folio.sample.integration.api.books;
 
-
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import java.time.LocalDate;
@@ -21,7 +20,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 
 
-class BookAvailable extends AbstractBaseApiTest {
+class BookAvailableTest extends AbstractBaseApiTest {
 
   @MethodSource
   // localdate is optional and deffault value is 2000-01-01
