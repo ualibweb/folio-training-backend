@@ -22,6 +22,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Book implements Serializable {
 
+
+
   /**
    * The UUID of the book
    */
@@ -45,6 +47,14 @@ public class Book implements Serializable {
   @Column(name = "published_date")
   private LocalDate publishedDate;
 
+  /**
+   * The book's availability
+   */
+  @NotNull
+  @Column(name = "available")
+  private boolean available;
+
+  
   public boolean isPublishedInLeapYear() {
     if (this.getPublishedDate().getYear() % 4 != 0) {
       return false;
