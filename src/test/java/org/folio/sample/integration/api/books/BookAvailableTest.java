@@ -42,6 +42,7 @@ class BookAvailableTest extends AbstractBaseApiTest {
           .builder()
           .name("Book 1")
           .publishedDate(LocalDate.of(2000, 1, 1))
+          .isAvailable(true)
           .build()
       )
       .post(getRequestUrl("books"))
@@ -54,6 +55,7 @@ class BookAvailableTest extends AbstractBaseApiTest {
           .builder()
           .name("Book 2")
           .publishedDate(LocalDate.of(2000, 1, 1))
+          .isAvailable(false)
           .build()
       )
       .post(getRequestUrl("books"))
@@ -68,11 +70,31 @@ class BookAvailableTest extends AbstractBaseApiTest {
     List<BookDTO> collection = response
       .getBody()
       .as(new TypeRef<List<BookDTO>>() {});
-    assertThat(collection, hasSize(2));
+    // Test size
+    assertThat(collection, hasSize(1));
     assertThat(collection.get(0).getName(), is(equalTo("Book 1")));
     assertThat(
       collection.get(0).getPublishedDate(),
       is(equalTo(LocalDate.of(2000, 1, 1)))
+    );
+    assertThat(
+      collection.get(0).isIsAvailable(),
+      is(equalTo(true))
+    );
+
+    Response listAllBooks = ra()
+      .get(getRequestUrl("books"));
+
+    List<BookDTO> allBooks = listAllBooks.getBody().as(new TypeRef<List<BookDTO>>() {});
+
+    assertThat(allBooks.get(1).getName(), is(equalTo("Book 2")));
+    assertThat(
+      allBooks.get(1).getPublishedDate(),
+      is(equalTo(LocalDate.of(2000, 1, 1)))
+    );
+    assertThat(
+      allBooks.get(1).isIsAvailable(),
+      is(equalTo(false))
     );
   }
 
