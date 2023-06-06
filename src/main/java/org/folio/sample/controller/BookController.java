@@ -90,4 +90,18 @@ public class BookController implements BooksApi {
       HttpStatus.OK
     );
     }
+
+  /** {@inheritDoc} */
+  @Override
+  public ResponseEntity<List<BookDTO>> getAllAvailableBooks() {
+    log.info("Called GET /books/available");
+    return new ResponseEntity<>(
+      bookService
+        .findAllAvailable()
+        .stream()
+        .map(bookMapper::toDto)
+        .toList(),
+      HttpStatus.OK
+    );
+  }
   }

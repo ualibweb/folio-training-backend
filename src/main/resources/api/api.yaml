@@ -93,3 +93,17 @@ paths:
                 $ref: "./schemas/book.yaml"
         "404":
           description: The book was not found
+  /books/available:
+    get:
+      summary: Get all available books
+      description: Get all available books
+      operationId: getAllAvailableBooks
+      responses:
+        "200":
+          description: The query results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "./schemas/book.yaml" 
