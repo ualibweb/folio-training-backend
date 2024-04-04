@@ -76,4 +76,25 @@ public class BookController implements BooksApi {
       HttpStatus.OK
     );
   }
+
+  public ResponseEntity<BookDTO> updateBook(UUID bookId, BookForCreationDTO apiInfo) {
+    log.info("Called PUT /books/{}", bookId);
+    
+    //Get the current book based of off ID
+    BookDTO currentBook = bookMapper.toDto(
+      bookService
+        .getBookById(bookId)
+        .orElseThrow(() -> new NotFoundException("Book not found"))
+    );
+    
+    //Get info provided from API and set the current books info to new info
+    currentBook.setName(apiInfo.getName());
+    currentBook.setPublishedDate(apiInfo.getPublishedDate());
+
+    //Save updated book information
+    return new ResponseEntity<>(
+      bookMapper.toDto(bookService.createBook(bookMapper.fromDto(currentBook))),
+      HttpStatus.OK
+    );
+  }
 }
