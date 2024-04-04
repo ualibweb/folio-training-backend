@@ -17,4 +17,5 @@ public interface BookMapper {
   @Mapping(target = "id", ignore = true)
   @Mapping(source = "isAvailable", target = "available")
   Book fromDto(BookForCreationDTO source);
+  Book fromDto(BookDTO source);
 }

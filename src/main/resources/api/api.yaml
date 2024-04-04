@@ -67,6 +67,32 @@ paths:
                 $ref: "./schemas/book.yaml"
         "404":
           description: The book was not found
+    put:
+      summary: Update a book
+      description: Update a single books attributes
+      operationId: updateBook
+      parameters:
+        - in: path
+          name: bookId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./schemas/bookForCreation.yaml"
+      responses: 
+        "200":
+          description: The updated book results
+          content: 
+            application/json:
+              schema:
+                $ref: "./schemas/book.yaml"
+        "404":
+          description: The book was not found
   /books/available:
     get:
       summary: Get available books
