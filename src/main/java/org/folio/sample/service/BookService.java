@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+
 import org.folio.sample.domain.entity.Book;
 import org.folio.sample.repository.BookRepository;
+import org.folio.spring.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,18 @@ public class BookService {
   }
 
   public Book createBook(Book book) {
+    return bookRepository.save(book);
+  }
+
+  public Book updateBook (UUID id, Book newBook){
+    Book book = 
+      bookRepository
+        .findById(id)
+        .orElseThrow(() -> new NotFoundException("Book not found"));
+    
+    book.setName(newBook.getName());
+    book.setPublishedDate(newBook.getPublishedDate());
+
     return bookRepository.save(book);
   }
 
