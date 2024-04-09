@@ -15,7 +15,7 @@ import org.folio.sample.integration.AbstractBaseApiTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-class GetLeapYearBookTest extends AbstractBaseApiTest {
+public class GetLeapYearBookTest extends AbstractBaseApiTest {
   @Test
   void testEmptyGet(){
     Response response = ra()
