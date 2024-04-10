@@ -77,15 +77,6 @@ public class BookController implements BooksApi {
     );
   }
 
-  public ResponseEntity<List<BookDTO>> getAllAvailable() {
-    log.info("Called GET /books/available");
-
-    return new ResponseEntity<>(
-      bookService.findAllAvailable().stream().map(bookMapper::toDto).toList(),
-      HttpStatus.OK
-    );
-  }
-
   public ResponseEntity<BookDTO> updateBook(UUID bookId, BookForCreationDTO newBook) {
     log.info("Called PUT /books/{}", bookId);
 
