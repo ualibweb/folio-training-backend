@@ -19,10 +19,6 @@ class GetAllAvailableTest extends AbstractBaseApiTest {
   
   @Test
   void testEmptyGet(){
-    ra()
-      .get(getRequestUrl("books/available"))
-      .then()
-      .statusCode(is(HttpStatus.OK.value()));
     
     Response response = ra()
     .get(getRequestUrl("books/available"));

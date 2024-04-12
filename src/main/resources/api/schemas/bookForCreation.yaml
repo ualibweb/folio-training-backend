@@ -14,3 +14,4 @@ properties:
 required:
   - name
   - publishedDate
+  - isAvailable

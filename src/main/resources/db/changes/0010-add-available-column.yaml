@@ -10,4 +10,6 @@ databaseChangeLog:
               - column:
                   name: available
                   type: boolean
-                  defaultValueBoolean: true
+                  constraints:
+                    nullable: true
+                    defaultValueBoolean: true
