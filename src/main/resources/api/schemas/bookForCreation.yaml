@@ -8,6 +8,10 @@ properties:
     type: string
     format: date
     description: When the book was published
+  isAvailable:
+    type: boolean
+    description: The books availability
 required:
   - name
   - publishedDate
+  - isAvailable
