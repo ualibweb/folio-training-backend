@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.is;
 
 import io.restassured.response.Response;
 import net.minidev.json.JSONObject;
-
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -28,14 +27,13 @@ class UpdateBookTest extends AbstractBaseApiTest{
 
   @Test 
   void testUpdate(){
-
     Response postResponse = ra()
-      .body( 
-      BookForCreationDTO
-        .builder()
-        .name("book 1")
-        .publishedDate(LocalDate.of(2020, 1, 1))
-        .build()
+      .body(
+        BookForCreationDTO
+          .builder()
+          .name("book 1")
+          .publishedDate(LocalDate.of(2024, 1, 1))
+          .build()
       )
       .post(getRequestUrl("books"));
     postResponse.then().statusCode(is(HttpStatus.CREATED.value()));
@@ -53,7 +51,7 @@ class UpdateBookTest extends AbstractBaseApiTest{
       .pathParam("id", createdId)
       .put(getRequestUrl("books/{id}"));
     putResponse.then().statusCode(is(HttpStatus.OK.value()));
-
+    
     Response getResponse = ra()
       .pathParam("id", createdId)
       .get(getRequestUrl("books/{id}"));
