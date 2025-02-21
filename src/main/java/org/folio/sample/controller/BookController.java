@@ -76,4 +76,25 @@ public class BookController implements BooksApi {
       HttpStatus.OK
     );
   }
+
+  // /** {@inheritDoc} */
+  // @Override
+  public ResponseEntity<BookDTO> updateBook(UUID bookId, BookForCreationDTO bookForCreation) {
+    log.info("Called PUT /books/{}", bookId);
+
+    BookDTO newBook = bookMapper.toDto(
+      bookService
+        .getBookById(bookId)
+        .orElseThrow(() -> new NotFoundException("Book doesnt Exist")) 
+    );
+
+    newBook.setName(bookForCreation.getName());
+    newBook.setPublishedDate(bookForCreation.getPublishedDate());
+
+    return new ResponseEntity<>(
+      bookMapper.toDto(bookService.createBook(bookMapper.fromDto(newBook))),
+      HttpStatus.OK
+    );
+  }
+
 }
