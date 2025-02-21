@@ -13,7 +13,7 @@ import org.folio.sample.integration.AbstractBaseApiTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-class GetSingleBookTest extends AbstractBaseApiTest {
+class NewBookTest extends AbstractBaseApiTest {
 
   @Test
   void testNotFound() {
@@ -25,7 +25,7 @@ class GetSingleBookTest extends AbstractBaseApiTest {
   }
 
   @Test
-  void testGetWithBook() {
+  void testUpdateBook() {
     Response postResponse = ra()
       .body(
         BookForCreationDTO
@@ -40,14 +40,20 @@ class GetSingleBookTest extends AbstractBaseApiTest {
 
     UUID createdId = postResponse.as(BookDTO.class).getId();
 
-    Response getResponse = ra()
+    Response putResponse = ra()
+        .body(
+            BookForCreationDTO
+            .builder()
+            .name("new Book")
+            .publishedDate(LocalDate.of(2002, 1, 1))
+            .isAvailable(true)
+            .build()
+        )   
       .pathParam("id", createdId)
-      .get(getRequestUrl("books/{id}"));
-    getResponse.then().statusCode(is(HttpStatus.OK.value()));
+      .put(getRequestUrl("books/{id}"));
+    putResponse.then().statusCode(is(HttpStatus.OK.value()));
 
-    BookDTO book = getResponse.getBody().as(BookDTO.class);
-    assertThat(book.getName(), is(equalTo("Book 1")));
-    assertThat(book.getPublishedDate(), is(equalTo(LocalDate.of(2000, 1, 1))));
-    assertThat(book.isIsAvailable(), is(equalTo(true)));
-  }
+    BookDTO book = putResponse.getBody().as(BookDTO.class);
+    assertThat(book.getName(), is(equalTo("new Book")));
+    assertThat(book.getPublishedDate(), is(equalTo(LocalDate.of(2002, 1, 1))));  }
 }

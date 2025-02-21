@@ -10,9 +10,12 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface BookMapper {
   BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
-
+  
+  @Mapping(source="available", target="isAvailable")
   BookDTO toDto(Book source);
 
   @Mapping(target = "id", ignore = true)
+  @Mapping(source="isAvailable", target="available")
   Book fromDto(BookForCreationDTO source);
+  Book fromDto(BookDTO source);
 }
