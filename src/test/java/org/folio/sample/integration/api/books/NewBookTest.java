@@ -32,6 +32,7 @@ class NewBookTest extends AbstractBaseApiTest {
           .builder()
           .name("Book 1")
           .publishedDate(LocalDate.of(2000, 1, 1))
+          .isAvailable(true)
           .build()
       )
       .post(getRequestUrl("books"));
@@ -45,6 +46,7 @@ class NewBookTest extends AbstractBaseApiTest {
             .builder()
             .name("new Book")
             .publishedDate(LocalDate.of(2002, 1, 1))
+            .isAvailable(true)
             .build()
         )   
       .pathParam("id", createdId)
@@ -53,6 +55,5 @@ class NewBookTest extends AbstractBaseApiTest {
 
     BookDTO book = putResponse.getBody().as(BookDTO.class);
     assertThat(book.getName(), is(equalTo("new Book")));
-    assertThat(book.getPublishedDate(), is(equalTo(LocalDate.of(2002, 1, 1))));
-  }
+    assertThat(book.getPublishedDate(), is(equalTo(LocalDate.of(2002, 1, 1))));  }
 }

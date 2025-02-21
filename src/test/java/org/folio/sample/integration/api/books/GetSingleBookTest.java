@@ -32,6 +32,7 @@ class GetSingleBookTest extends AbstractBaseApiTest {
           .builder()
           .name("Book 1")
           .publishedDate(LocalDate.of(2000, 1, 1))
+          .isAvailable(true)
           .build()
       )
       .post(getRequestUrl("books"));
@@ -47,5 +48,6 @@ class GetSingleBookTest extends AbstractBaseApiTest {
     BookDTO book = getResponse.getBody().as(BookDTO.class);
     assertThat(book.getName(), is(equalTo("Book 1")));
     assertThat(book.getPublishedDate(), is(equalTo(LocalDate.of(2000, 1, 1))));
+    assertThat(book.isIsAvailable(), is(equalTo(true)));
   }
 }

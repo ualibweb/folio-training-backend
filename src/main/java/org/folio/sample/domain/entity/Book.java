@@ -45,6 +45,14 @@ public class Book implements Serializable {
   @Column(name = "published_date")
   private LocalDate publishedDate;
 
+  /**
+   * Is book available?
+   */
+  @NotNull
+  @Column(name = "available")
+  private Boolean available;
+
+
   public boolean isPublishedInLeapYear() {
     if (this.getPublishedDate().getYear() % 4 != 0) {
       return false;

@@ -53,6 +53,21 @@ public class BookController implements BooksApi {
 
   /** {@inheritDoc} */
   @Override
+  public ResponseEntity<List<BookDTO>> getAllAvailableBooks() {
+    log.info("Called GET /books/available");
+
+      return new ResponseEntity<>(
+        bookService
+          .findAllAvailable()
+          .stream()
+          .map(bookMapper::toDto)
+          .toList(),
+        HttpStatus.OK
+      );
+  }
+
+  /** {@inheritDoc} */
+  @Override
   public ResponseEntity<BookDTO> createBook(BookForCreationDTO book) {
     log.info("Called POST /books with book={}", book);
 
@@ -90,6 +105,7 @@ public class BookController implements BooksApi {
 
     newBook.setName(bookForCreation.getName());
     newBook.setPublishedDate(bookForCreation.getPublishedDate());
+    newBook.setIsAvailable(bookForCreation.isIsAvailable());
 
     return new ResponseEntity<>(
       bookMapper.toDto(bookService.createBook(bookMapper.fromDto(newBook))),

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0010-add-available-column
+      author: Kavya
+      comment: add new column
+      changes:
+        - addColumn:
+            tableName: books
+            columns:
+              - column:
+                  name: available
+                  type: boolean
+                  constraints:
+                    nullable: true
+                    defaultValueBoolean: true

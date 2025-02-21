@@ -15,13 +15,12 @@ import org.folio.sample.integration.AbstractBaseApiTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-class GetAllBooksTest extends AbstractBaseApiTest {
+class GetAvailableTest extends AbstractBaseApiTest {
 
   @Test
-  void testEmptyGet() {
+  void testEmptyAvailableGet() {
     Response response = ra()
-      .queryParam("onlyLeapYears", false)
-      .get(getRequestUrl("books"));
+      .get(getRequestUrl("books/available"));
     response.then().statusCode(is(HttpStatus.OK.value()));
 
     List<BookDTO> collection = response
@@ -45,9 +44,21 @@ class GetAllBooksTest extends AbstractBaseApiTest {
       .then()
       .statusCode(is(HttpStatus.CREATED.value()));
 
+      ra()
+      .body(
+        BookForCreationDTO
+          .builder()
+          .name("Book 2")
+          .publishedDate(LocalDate.of(2010, 1, 1))
+          .isAvailable(false)
+          .build()
+      )
+      .post(getRequestUrl("books"))
+      .then()
+      .statusCode(is(HttpStatus.CREATED.value()));
+
     Response response = ra()
-      .queryParam("onlyLeapYears", false)
-      .get(getRequestUrl("books"));
+      .get(getRequestUrl("books/available"));
     response.then().statusCode(is(HttpStatus.OK.value()));
 
     List<BookDTO> collection = response
@@ -60,31 +71,5 @@ class GetAllBooksTest extends AbstractBaseApiTest {
       is(equalTo(LocalDate.of(2000, 1, 1)))
     );
     assertThat(collection.get(0).isIsAvailable(), is(equalTo(true)));
-  }
-
-  @Test
-  void testGetWithBookNoLeapYear() {
-    ra()
-      .body(
-        BookForCreationDTO
-          .builder()
-          .name("Book")
-          .publishedDate(LocalDate.of(2002, 1, 1))
-          .isAvailable(false)
-          .build()
-      )
-      .post(getRequestUrl("books"))
-      .then()
-      .statusCode(is(HttpStatus.CREATED.value()));
-
-    Response response = ra()
-      .queryParam("onlyLeapYears", true)
-      .get(getRequestUrl("books"));
-    response.then().statusCode(is(HttpStatus.OK.value()));
-
-    List<BookDTO> collection = response
-      .getBody()
-      .as(new TypeRef<List<BookDTO>>() {});
-    assertThat(collection, hasSize(0));
   }
 }
