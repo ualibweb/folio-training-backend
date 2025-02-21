@@ -93,7 +93,7 @@ public class BookController implements BooksApi {
 
     return new ResponseEntity<>(
       bookMapper.toDto(bookService.createBook(bookMapper.fromDto(newBook))),
-      HttpStatus.CREATED
+      HttpStatus.OK
     );
   }
 

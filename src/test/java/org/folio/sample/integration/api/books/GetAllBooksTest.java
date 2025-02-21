@@ -59,4 +59,29 @@ class GetAllBooksTest extends AbstractBaseApiTest {
       is(equalTo(LocalDate.of(2000, 1, 1)))
     );
   }
+
+  @Test
+  void testGetWithBookNoLeapYear() {
+    ra()
+      .body(
+        BookForCreationDTO
+          .builder()
+          .name("Book")
+          .publishedDate(LocalDate.of(2002, 1, 1))
+          .build()
+      )
+      .post(getRequestUrl("books"))
+      .then()
+      .statusCode(is(HttpStatus.CREATED.value()));
+
+    Response response = ra()
+      .queryParam("onlyLeapYears", true)
+      .get(getRequestUrl("books"));
+    response.then().statusCode(is(HttpStatus.OK.value()));
+
+    List<BookDTO> collection = response
+      .getBody()
+      .as(new TypeRef<List<BookDTO>>() {});
+    assertThat(collection, hasSize(0));
+  }
 }
