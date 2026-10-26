@@ -39,8 +39,8 @@
     <folio-spring-base.version>6.0.1</folio-spring-base.version>
     <openapi-generator.version>6.3.0</openapi-generator.version>
     <json.version>20200518</json.version>
-    <lombok.version>1.18.22</lombok.version>
-    <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+    <!-- Lombok 1.18.30+ is required to compile on Java 21 -->
+    <lombok.version>1.18.34</lombok.version>
     <liquibase-maven-plugin.version>4.6.2</liquibase-maven-plugin.version>
     <javadoc-maven-plugin.version>3.3.1</javadoc-maven-plugin.version>
     <icu4j.version>72.1</icu4j.version>
@@ -54,7 +54,10 @@
     <!-- Test Properties-->
     <spring-boot-starter-test.version>3.0.2</spring-boot-starter-test.version>
     <wiremock.version>2.35.0</wiremock.version>
-    <embedded-database-spring-test.version>2.2.0</embedded-database-spring-test.version>
+    <embedded-database-spring-test.version>2.5.1</embedded-database-spring-test.version>
+    <!-- Testcontainers 1.21.4+ is required for Docker Engine 29+ (older versions fail with
+         "Could not find a valid Docker environment") -->
+    <testcontainers.version>1.21.4</testcontainers.version>
     <swagger-request-validator.version>2.33.1</swagger-request-validator.version>
     <hamcrest-date-matcher.version>2.0.8</hamcrest-date-matcher.version>
     <hamcrest-optional.version>2.0.0</hamcrest-optional.version>
@@ -65,6 +68,18 @@
     <sonar.organization>ualibweb</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -147,6 +162,13 @@
           <artifactId>logback-classic</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <!-- Docker-based PostgreSQL for the integration tests (used by embedded-database-spring-test) -->
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
