@@ -27,7 +27,10 @@ spring:
 zonky:
   test:
     database:
+      provider: docker
       postgres:
+        docker:
+          image: postgres:16-alpine
         client:
           properties:
             stringtype: unspecified
